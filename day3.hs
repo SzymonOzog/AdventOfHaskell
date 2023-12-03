@@ -52,3 +52,7 @@ main = do
     let numbers = map (parseNumber columns contents) grouped
     let symbolLocs = parseSymbols contents columns
     print (sum [num | (num,_,_) <- filterNumbersNextToSymbols numbers symbolLocs])
+
+    let gearSymbolLocs =  map (`toRowColumn` columns) (findIndices ('*'==) contents)
+    let gearNums = filter ((2==) . length)[filterNumbersNextToSymbols numbers [gearLoc] | gearLoc <- gearSymbolLocs]
+    print (sum [product[a | (a,_,_) <- x] | x <- gearNums])
