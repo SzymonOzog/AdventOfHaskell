@@ -23,3 +23,7 @@ main = do
     let distances = map rInt (words (drop 11 distanceLine))
     let timeToDistance = [(t,d) | t <- times| d<- distances]
     print (product (map findWinningTimes timeToDistance))
+
+    let parseRec = rInt . filter isDigit
+    let timeDistance = (parseRec timeLine, parseRec distanceLine)
+    print (findWinningTimes timeDistance)
