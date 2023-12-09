@@ -3,11 +3,12 @@
 rInt :: String -> Int
 rInt = read
 
-findNew :: [Int] -> Int
-findNew readings = sum (zipWith (*) coeffs (reverse readings))
+findNew :: [Int] -> Bool -> Int
+findNew readings fill_first = sum (zipWith (*) coeffs adjustedReadings)
     where 
         maxDepth = length readings-1
         coeffs = [coeff*(1-(2*(i`mod`2))) | coeff <- drop 1 (pascal maxDepth) | i<-[0..]]
+        adjustedReadings = if fill_first then readings else reverse readings
 
 pascal :: Int -> [Int]
 pascal 0 = [1]
@@ -27,4 +28,5 @@ main :: IO ()
 main = do
     contents <- readFile "day9.txt"
     let readings = [map rInt (words x) | x <- lines contents]
-    print (sum (map findNew readings))
+    print (sum (map (`findNew` False) readings))
+    print (sum (map (`findNew` True) readings))
