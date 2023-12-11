@@ -30,3 +30,4 @@ main = do
     let totalC = length (head galaxyMap)
     let allGalaxies = [(x `div` totalC, x `mod` totalC) | x <- elemIndices '#' (concat galaxyMap)]
     print (allPairDistance allGalaxies emptyRows emptyColumns 2)
+    print (allPairDistance allGalaxies emptyRows emptyColumns 1000000)
